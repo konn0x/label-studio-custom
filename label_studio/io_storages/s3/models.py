@@ -218,7 +218,7 @@ class S3ExportStorage(S3StorageMixin, ExportStorage):
             else:
                 additional_params['ServerSideEncryption'] = 'AES256'
 
-        s3.Object(self.bucket, key).put(Body=json.dumps(ser_annotation), **additional_params)
+        s3.Object(self.bucket, key).put(Body=json.dumps(ser_annotation, ensure_ascii=False), **additional_params)
 
         # create link if everything ok
         S3ExportStorageLink.create(annotation, self)
